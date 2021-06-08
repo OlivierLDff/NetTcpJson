@@ -3,12 +3,12 @@ name: ✅ Unit Tests
 on:
   push:
     branches:
-      - master
+      - main
       - ci
 
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   Test:
