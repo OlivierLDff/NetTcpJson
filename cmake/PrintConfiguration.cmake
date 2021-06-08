@@ -1,0 +1,28 @@
+include(ProcessorCount)
+ProcessorCount(N)
+if(N EQUAL 0)
+  set(PARALLEL_LEVEL "")
+else()
+  set(PARALLEL_LEVEL "-j${N}")
+endif()
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release")
+endif()
+
+message(STATUS " ")
+message(STATUS "Versions:")
+message(STATUS "  NetTcp        : ${NETTCP_VERSION} ${NETTCP_TAG}")
+message(STATUS "  QOlm          : ${QOLM_VERSION} ${QOLM_TAG}")
+message(STATUS "  Qt            : ${Qt5_VERSION}")
+
+message(STATUS " ")
+message(STATUS "Targets:")
+message(STATUS "  NetTcpJson        : cmake --build . --target ${NETTCPJSON_TARGET} --config ${CMAKE_BUILD_TYPE} ${PARALLEL_LEVEL}")
+
+if(TARGET "${NETTCPJSON_TARGET}Tests")
+message(STATUS " ")
+message(STATUS "Tests:")
+message(STATUS "  NetTcpJsonTests   : cmake --build . --target ${NETTCPJSON_TARGET}Tests --config ${CMAKE_BUILD_TYPE} ${PARALLEL_LEVEL}")
+message(STATUS "  Run Tests     : ctest -C ${CMAKE_BUILD_TYPE} . --verbose --progress")
+endif()

@@ -1,0 +1,19 @@
+name: 🎨 Run Linters
+
+on: [push]
+
+jobs:
+
+  clang-format:
+    if: "!contains(github.event.head_commit.message, '🎨')"
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: DoozyX/clang-format-lint-action@v0.10
+      name: "🎨 Run clang-format"
+      with:
+        source: '.'
+        extensions: 'hpp,cpp'
+        clangFormatVersion: 11
+        inplace: True

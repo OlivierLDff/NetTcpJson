@@ -1,0 +1,54 @@
+name: ✅ Unit Tests
+
+on:
+  push:
+    branches:
+      - master
+      - ci
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  Test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        version: ['5.15.2']
+        build_type: ['Release']
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      -
+        name: 📦 Cache Qt
+        id: cache-qt
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/Qt-${{ runner.os }}-${{ matrix.version }}
+          key: ${{ runner.os }}-QtCache-${{ matrix.version }}
+      -
+        name: ⬇ Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: ${{ matrix.version }}
+          dir: ${{ github.workspace }}/Qt-${{ runner.os }}-${{ matrix.version }}
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+      -
+        name: 🔧 NetTcpJson
+        run: |
+          cmake -E make_directory build
+          cmake -DNETTCPJSON_ENABLE_TESTS=ON \
+                -DCMAKE_BUILD_TYPE="${{ matrix.build_type }}" \
+                -B build -S .
+        shell: bash
+      -
+        name: 🔨 NetTcpJson
+        run: cmake --build build --target "NetTcpJson" --config "${{ matrix.build_type }}" -j 8
+      -
+        name: 🔨 NetTcpJsonTests
+        run: cmake --build build --target "NetTcpJsonTests" --config "${{ matrix.build_type }}" -j 8
+      -
+        name: ✅ Unit Tests
+        run: cd build && ctest --build-config "${{ matrix.build_type }}" --progress --verbose
