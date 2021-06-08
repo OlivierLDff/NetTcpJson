@@ -3,7 +3,9 @@ NetTcpJson
 
 [![✅ Unit Tests](https://github.com/OlivierLDff/NetTcpJson/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/Naostage/NetTcpJson/actions/workflows/unit-tests.yml)
 
-![Json Image](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/JSON_vector_logo.svg/1200px-JSON_vector_logo.svg.png)
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/JSON_vector_logo.svg/1200px-JSON_vector_logo.svg.png"/ width=200>
+</p>
 
 **NetTcpJson** library based on [NetTcp](https://github.com/OlivierLDff/NetTcp). The library provide a parser to extract json from buffer, and a tcp socket based on **NetTcp**.
 
