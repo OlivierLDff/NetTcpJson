@@ -24,6 +24,7 @@
 
 #include <NetTcpJson/SocketWorker.hpp>
 #include <NetTcpJson/Extractor.hpp>
+#include <cstring>
 
 namespace nettcpjson {
 
