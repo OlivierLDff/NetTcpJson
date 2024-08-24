@@ -1,6 +1,6 @@
 
 include(${PROJECT_SOURCE_DIR}/cmake/FetchGTest.cmake)
-find_package(Qt5 REQUIRED COMPONENTS Test)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Test)
 
 set(NETTCPJSON_TESTS_TARGET "${NETTCPJSON_TARGET}Tests")
 
