@@ -73,7 +73,13 @@ message(STATUS "------ ${NETTCPJSON_TARGET} End Configuration ------")
 
 # ── DEPENDENCIES ──
 
-find_package(Qt5 REQUIRED COMPONENTS Core)
+# Check if QT_VERSION_MAJOR is defined, if not, find Qt
+if(NOT DEFINED QT_VERSION_MAJOR)
+  find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
+endif()
+
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
+
 include(cmake/Dependencies.cmake)
 include(cmake/FetchNetTcp.cmake)
 
