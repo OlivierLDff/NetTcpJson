@@ -39,8 +39,9 @@ bool Extractor::extract(const std::uint8_t* buffer, const std::size_t& length)
     // Let's create a copy buffer of current buffer and last
     if(!_lastBuffer.empty())
     {
-        tempData = std::move(_lastBuffer);
-        tempData.insert(std::end(tempData), buffer, buffer + length);
+        tempData = _lastBuffer;
+        _lastBuffer.clear();
+        tempData.insert(tempData.end(), buffer, buffer + length);
 
         realBuffer = tempData.data();
         realLength = tempData.size();
