@@ -40,6 +40,7 @@ bool Extractor::extract(const std::uint8_t* buffer, const std::size_t& length)
     if(!_lastBuffer.empty())
     {
         tempData = _lastBuffer;
+        _lastBuffer.clear();
         tempData.insert(tempData.end(), buffer, buffer + length);
 
         realBuffer = tempData.data();
